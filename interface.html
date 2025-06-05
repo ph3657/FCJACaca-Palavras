@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Caça-Palavras</title>
+  <style>
+    body {
+      font-family: Arial;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      gap: 2px;
+      margin-top: 20px;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      vertical-align: middle;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      user-select: none;
+    }
+    .found {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo de Caça-Palavras</h1>
+  <div><strong>Encontre as palavras:</strong> <span id="words"></span></div>
+  <div id="grid"></div>
+
+  <script src="codigo.js"></script>
+</body>
+</html>
