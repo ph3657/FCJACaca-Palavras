@@ -78,9 +78,16 @@ gridElement.addEventListener('click', (e) => {
 
   const selectedWord = selectedLetters.join('');
   if (wordsToFind.includes(selectedWord)) {
-    alert(`Você encontrou a palavra: ${selectedWord}`);
-    selectedLetters = [];
-  }
+  alert(`Você encontrou a palavra: ${selectedWord}`);
+
+  // Marca as letras da palavra como completas
+  document.querySelectorAll('.cell.found').forEach(cell => {
+    cell.classList.remove('found');
+    cell.classList.add('word-complete');
+  });
+
+  selectedLetters = [];
+}
 
   if (selectedLetters.length > 10) {
     selectedLetters = [];
