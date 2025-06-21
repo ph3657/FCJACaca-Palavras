@@ -1,5 +1,5 @@
-const gridSize = 10;
-const wordsToFind = ['GIBI', 'LETRA', 'LIVRO'];
+const gridSize = 12;
+const wordsToFind = ['GIBI', 'LETRA', 'LIVRO' , 'LAPIS'];
 const gridElement = document.getElementById('grid');
 const wordsElement = document.getElementById('words');
 
@@ -78,21 +78,24 @@ gridElement.addEventListener('click', (e) => {
 
   const selectedWord = selectedLetters.join('');
   if (wordsToFind.includes(selectedWord)) {
-  alert(`Você encontrou a palavra: ${selectedWord}`);
+    alert(`Você encontrou a palavra: ${selectedWord}`);
 
-  // Marca as letras da palavra como completas
-  document.querySelectorAll('.cell.found').forEach(cell => {
-    cell.classList.remove('found');
-    cell.classList.add('word-complete');
-  });
-
-  selectedLetters = [];
-}
-
-  if (selectedLetters.length > 10) {
-    selectedLetters = [];
-    document.querySelectorAll('.cell').forEach(cell => {
+    // Marca as letras da palavra como completas
+    document.querySelectorAll('.cell.found').forEach(cell => {
       cell.classList.remove('found');
+      cell.classList.add('word-complete');
     });
+
+    selectedLetters = [];
+  }
+//Botão de limpar
+  if (selectedLetters.length > 10) {
+    limparSelecao();
   }
 });
+function limparSelecao() {
+  selectedLetters = [];
+  document.querySelectorAll('.cell.found').forEach(cell => {
+    cell.classList.remove('found');
+  });
+}
