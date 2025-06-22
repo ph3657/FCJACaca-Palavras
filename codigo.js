@@ -1,5 +1,5 @@
 const gridSize = 12;
-const wordsToFind = ['GIBI', 'LETRA', 'LIVRO' , 'LAPIS'];
+const wordsToFind = ['GIBI', 'LETRA', 'LIVRO'].map(w => w.toUpperCase());
 const gridElement = document.getElementById('grid');
 const wordsElement = document.getElementById('words');
 
@@ -42,7 +42,7 @@ function inserirPalavra(word) {
 
 // Insere as palavras na grade
 wordsToFind.forEach(word => {
-  inserirPalavra(word.toUpperCase());
+  inserirPalavra(word);
 });
 
 // Preenche espaços vazios com letras aleatórias
@@ -68,16 +68,46 @@ for (let row = 0; row < gridSize; row++) {
 
 // Armazena a seleção atual
 let selectedLetters = [];
+let selectedPositions = [];
+
+// Valida se a sequência é linha reta
+function éSequênciaVálida(posicoes) {
+  if (posicoes.length < 2) return true;
+
+  const dx = posicoes[1].col - posicoes[0].col;
+  const dy = posicoes[1].row - posicoes[0].row;
+
+  for (let i = 2; i < posicoes.length; i++) {
+    const dxi = posicoes[i].col - posicoes[i - 1].col;
+    const dyi = posicoes[i].row - posicoes[i - 1].row;
+
+    if (dxi !== dx || dyi !== dy) return false;
+  }
+
+  return true;
+}
 
 // Clique nas células
 gridElement.addEventListener('click', (e) => {
   if (!e.target.classList.contains('cell')) return;
 
+  const row = parseInt(e.target.dataset.row);
+  const col = parseInt(e.target.dataset.col);
+
   e.target.classList.add('found');
   selectedLetters.push(e.target.textContent);
+  selectedPositions.push({ row, col });
 
-  const selectedWord = selectedLetters.join('');
-  if (wordsToFind.includes(selectedWord)) {
+  const selectedWord = selectedLetters.join('').toUpperCase();
+  const reversedWord = selectedLetters.slice().reverse().join('').toUpperCase();
+
+  if (!éSequênciaVálida(selectedPositions)) {
+    alert('As letras precisam estar em sequência na mesma linha, coluna ou diagonal!');
+    limparSelecao();
+    return;
+  }
+
+  if (wordsToFind.includes(selectedWord) || wordsToFind.includes(reversedWord)) {
     alert(`Você encontrou a palavra: ${selectedWord}`);
 
     // Marca as letras da palavra como completas
@@ -87,15 +117,20 @@ gridElement.addEventListener('click', (e) => {
     });
 
     selectedLetters = [];
+    selectedPositions = [];
   }
-//Botão de limpar
+//Limpar automaticamente
   if (selectedLetters.length > 10) {
     limparSelecao();
   }
 });
+
+// Limpa seleção manualmente ou por erro
 function limparSelecao() {
   selectedLetters = [];
+  selectedPositions = [];
   document.querySelectorAll('.cell.found').forEach(cell => {
     cell.classList.remove('found');
   });
 }
+
