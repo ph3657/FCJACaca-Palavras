@@ -120,7 +120,7 @@ gridElement.addEventListener('click', (e) => {
     selectedPositions = [];
   }
 //Limpar automaticamente
-  if (selectedLetters.length > 10) {
+  if (selectedLetters.length > 8) {
     limparSelecao();
   }
 });
