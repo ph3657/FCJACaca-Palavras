@@ -1,0 +1,26 @@
+.mensagem-encontrada {
+  position: fixed;
+  top: 20px;
+  background-color: #fffae6;
+  border: 2px solid #ffaa00;
+  color: #333;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  animation: fadein 0.5s ease, fadeout 0.5s ease 2.5s;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+@keyframes fadein {
+  from { opacity: 0; top: 0; }
+  to { opacity: 1; top: 20px; }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; top: 20px; }
+  to { opacity: 0; top: 0; }
+}

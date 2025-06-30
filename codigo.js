@@ -108,7 +108,7 @@ gridElement.addEventListener('click', (e) => {
   }
 
   if (wordsToFind.includes(selectedWord) || wordsToFind.includes(reversedWord)) {
-    alert(`Você encontrou a palavra: ${selectedWord}`);
+    mostrarMensagem(`🎉 Você encontrou a palavra: ${selectedWord.toUpperCase()}!`);
 
     // Marca as letras da palavra como completas
     document.querySelectorAll('.cell.found').forEach(cell => {
@@ -132,5 +132,15 @@ function limparSelecao() {
   document.querySelectorAll('.cell.found').forEach(cell => {
     cell.classList.remove('found');
   });
+}
+// Mensagem personalizada
+function mostrarMensagem(texto) {
+  const msg = document.getElementById('mensagem');
+  msg.textContent = texto;
+  msg.style.display = 'block';
+
+  setTimeout(() => {
+    msg.style.display = 'none';
+  }, 3000);
 }
 
