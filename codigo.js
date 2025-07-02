@@ -128,7 +128,7 @@ gridElement.addEventListener('click', (e) => {
   // ✅ VERIFICA SE TODAS FORAM ENCONTRADAS
   if (palavrasEncontradas.length === wordsToFind.length) {
     setTimeout(() => {
-      mostrarMensagem("🏆 Parabéns! Você encontrou TODAS as palavras!");
+      mostrarMensagemFinal("🏆 Parabéns! Você encontrou TODAS as palavras!");
     }, 700); // pequeno delay para não sobrepor a mensagem da última palavra
   }
 }
@@ -150,11 +150,42 @@ function limparSelecao() {
 // Mensagem personalizada
 function mostrarMensagem(texto) {
   const msg = document.getElementById('mensagem');
+  // Evita sobrescrever a mensagem final (com botão)
+  if (msg.dataset.final === 'true') return;
+
   msg.textContent = texto;
   msg.style.display = 'block';
 
   setTimeout(() => {
-    msg.style.display = 'none';
+    if (msg.dataset.final !== 'true') {
+      msg.style.display = 'none';
+    }
   }, 3000);
 }
+//mensagem final com botão de reiniciar
+function mostrarMensagemFinal(texto) {
+  const msg = document.getElementById('mensagem');
+  msg.innerHTML = `
+    <div style="margin-bottom: 10px;">${texto}</div>
+    <button onclick="reiniciarJogo()" style="
+      padding: 8px 14px;
+      background-color: #ffaa00;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    ">🔁 Jogar Novamente</button>
+  `;
+  msg.style.display = 'block';
+  msg.style.backgroundColor = '#e0ffe0';
+  msg.style.borderColor = '#28a745';
+  msg.dataset.final = 'true'
+}
+//recarrega a página
+function reiniciarJogo() {
+  window.location.reload();
+}
+
+
 
