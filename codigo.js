@@ -2,6 +2,7 @@ const gridSize = 12;
 const wordsToFind = ['GIBI', 'LETRA', 'LIVRO'].map(w => w.toUpperCase());
 const gridElement = document.getElementById('grid');
 const wordsElement = document.getElementById('words');
+let palavrasEncontradas = [];
 
 // Mostrar palavras
 wordsElement.textContent = wordsToFind.join(', ');
@@ -108,17 +109,30 @@ gridElement.addEventListener('click', (e) => {
   }
 
   if (wordsToFind.includes(selectedWord) || wordsToFind.includes(reversedWord)) {
-    mostrarMensagem(`🎉 Você encontrou a palavra: ${selectedWord.toUpperCase()}!`);
+  const palavraFinal = wordsToFind.includes(selectedWord) ? selectedWord : reversedWord;
 
-    // Marca as letras da palavra como completas
-    document.querySelectorAll('.cell.found').forEach(cell => {
-      cell.classList.remove('found');
-      cell.classList.add('word-complete');
-    });
-
-    selectedLetters = [];
-    selectedPositions = [];
+  if (!palavrasEncontradas.includes(palavraFinal)) {
+    palavrasEncontradas.push(palavraFinal);
+    mostrarMensagem(`🎉 Você encontrou a palavra: ${palavraFinal}!`);
   }
+
+  // Marca as letras da palavra como completas
+  document.querySelectorAll('.cell.found').forEach(cell => {
+    cell.classList.remove('found');
+    cell.classList.add('word-complete');
+  });
+
+  selectedLetters = [];
+  selectedPositions = [];
+
+  // ✅ VERIFICA SE TODAS FORAM ENCONTRADAS
+  if (palavrasEncontradas.length === wordsToFind.length) {
+    setTimeout(() => {
+      mostrarMensagem("🏆 Parabéns! Você encontrou TODAS as palavras!");
+    }, 700); // pequeno delay para não sobrepor a mensagem da última palavra
+  }
+}
+
 //Limpar automaticamente
   if (selectedLetters.length > 8) {
     limparSelecao();
