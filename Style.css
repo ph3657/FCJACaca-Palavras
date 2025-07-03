@@ -24,3 +24,38 @@
   from { opacity: 1; top: 20px; }
   to { opacity: 0; top: 0; }
 }
+#personagem-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  position: relative;
+}
+
+#personagem {
+  width: 10px;
+  height: auto;
+  object-fit: contain;
+}
+
+#balao-fala {
+  max-width: 300px;
+  background-color: #ffffff;
+  border: 2px solid #888;
+  border-radius: 15px;
+  padding: 10px 15px;
+  font-family: sans-serif;
+  font-size: 14px;
+  position: relative;
+}
+
+#balao-fala::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: -15px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #888;
+}

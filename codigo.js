@@ -149,26 +149,31 @@ function limparSelecao() {
 }
 // Mensagem personalizada
 function mostrarMensagem(texto) {
-  const msg = document.getElementById('mensagem');
-  // Evita sobrescrever a mensagem final (com botão)
-  if (msg.dataset.final === 'true') return;
+  const balao = document.getElementById('balao-fala');
+  balao.textContent = texto;
 
-  msg.textContent = texto;
-  msg.style.display = 'block';
+  balao.style.backgroundColor = '#fff8dc';
+  balao.style.borderColor = '#aaa';
+  setTimeout(() => {
+    if (!balao.dataset.final) {
+      balao.textContent = 'Continue procurando!';
+    }
+  }, 3000);
+}
 
   setTimeout(() => {
     if (msg.dataset.final !== 'true') {
       msg.style.display = 'none';
     }
   }, 3000);
-}
+
 //mensagem final com botão de reiniciar
 function mostrarMensagemFinal(texto) {
-  const msg = document.getElementById('mensagem');
-  msg.innerHTML = `
-    <div style="margin-bottom: 10px;">${texto}</div>
+  const balao = document.getElementById('balao-fala');
+  balao.innerHTML = `
+    ${texto}<br><br>
     <button onclick="reiniciarJogo()" style="
-      padding: 8px 14px;
+      padding: 6px 12px;
       background-color: #ffaa00;
       border: none;
       color: white;
@@ -177,11 +182,9 @@ function mostrarMensagemFinal(texto) {
       cursor: pointer;
     ">🔁 Jogar Novamente</button>
   `;
-  msg.style.display = 'block';
-  msg.style.backgroundColor = '#e0ffe0';
-  msg.style.borderColor = '#28a745';
-  msg.dataset.final = 'true'
+  balao.dataset.final = 'true';
 }
+
 //recarrega a página
 function reiniciarJogo() {
   window.location.reload();
