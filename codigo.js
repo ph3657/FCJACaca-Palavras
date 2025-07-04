@@ -187,5 +187,5 @@ function reiniciarJogo() {
   window.location.reload();
 }
 
-
+//quase morri
 
