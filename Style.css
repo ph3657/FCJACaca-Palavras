@@ -1,26 +1,112 @@
+
+body {
+    background-color: #ffffff; 
+    color: #2E4D69; 
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #C23F34;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+}
+
+button {
+    background-color: #F2B946;
+    color: #2E4D69;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #D9A63E;
+}
+
+.container-principal {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.container-jogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#grid {
+    background-color: #44729D;
+    border: 5px solid #2E4D69;
+    display: grid;
+    grid-template-columns: repeat(12, 35px);
+    gap: 3px;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.cell {
+    background: #FEF6E4; 
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.found {
+    background-color: #F2B946;
+    transform: scale(1.1);
+}
+
+.word-complete {
+    background-color: #5f90be !important;
+    color: #FFFFFF !important;
+}
+
+#mascote {
+    width: 300px;
+    height: auto;
+    margin-top: 100px;
+}
+
 .mensagem-encontrada {
-  position: fixed;
-  top: 20px;
-  background-color: #fffae6;
-  border: 2px solid #ffaa00;
-  color: #333;
-  padding: 15px 25px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  animation: fadein 0.5s ease, fadeout 0.5s ease 2.5s;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
+    position: fixed;
+    top: 20px;
+    background-color: #FEF6E4;
+    border: 2px solid #F2B946;
+    color: #2E4D69; 
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    animation: fadein 0.5s ease, fadeout 0.5s ease 2.5s;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
 }
 
 @keyframes fadein {
-  from { opacity: 0; top: 0; }
-  to { opacity: 1; top: 20px; }
+    from { opacity: 0; top: 0; }
+    to { opacity: 1; top: 20px; }
 }
 
 @keyframes fadeout {
-  from { opacity: 1; top: 20px; }
-  to { opacity: 0; top: 0; }
+    from { opacity: 1; top: 20px; }
+    to { opacity: 0; top: 0; }
 }
