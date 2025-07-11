@@ -1,1 +1,1 @@
-Um jogo de prototipo
+Um jogo de prototipo para crianças.
