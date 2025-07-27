@@ -1,4 +1,3 @@
-
 body {
     background-color: #ffffff; 
     color: #2E4D69; 
@@ -33,9 +32,26 @@ button:hover {
 
 .container-principal {
     display: flex;
-    align-items: flex-start;
-    gap: 30px;
-    margin-top: 20px;
+    justify-content: space-between; 
+    align-items: center;          
+    width: 95%;                   
+    max-width: 1400px;   
+    margin: 20px auto;     
+    gap: 20px;
+}
+
+#mascote-esquerda {
+    object-fit: contain;
+    width: 470px;
+    height: auto;
+    margin-top: 100px;
+    max-width: 100%;
+    transform: scaleX(-1);
+}#mascote-direita {
+    object-fit: contain;
+    width: 300px;
+    height: auto;
+    margin-top: 100px;
 }
 
 .container-jogo {
@@ -78,12 +94,6 @@ button:hover {
     color: #FFFFFF !important;
 }
 
-#mascote {
-    width: 300px;
-    height: auto;
-    margin-top: 100px;
-}
-
 .mensagem-encontrada {
     position: fixed;
     top: 20px;
@@ -109,4 +119,20 @@ button:hover {
 @keyframes fadeout {
     from { opacity: 1; top: 20px; }
     to { opacity: 0; top: 0; }
+}
+
+#mensagem {
+    display: none; 
+    position: fixed; 
+    bottom: 20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    
+    background-color: #2E4D69; 
+    color: #FFFFFF;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+    text-align: center;
 }

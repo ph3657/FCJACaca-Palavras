@@ -1,5 +1,5 @@
 const gridSize = 12;
-const wordsToFind = ['GIBI', 'LETRA', 'LIVRO', 'LAPIS'].map(w => w.toUpperCase());
+const wordsToFind = ['GIBI', 'LETRA', 'LIVRO' , 'LAPIS'].map(w => w.toUpperCase());
 const gridElement = document.getElementById('grid');
 const wordsElement = document.getElementById('words');
 let palavrasEncontradas = [];
@@ -188,4 +188,5 @@ function reiniciarJogo() {
 }
 
 //quase morri bla
+
 
