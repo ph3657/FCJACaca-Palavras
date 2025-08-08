@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <div id="mensagem"></div>
-    <meta charset="UTF-8" />
-    <title>Caça-Palavras</title>
-    <link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caça-Palavras por Tema</title>
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
-    
-    <div class="container-principal"> 
+    <h1>Jogo de Caça-Palavras</h1>
 
-    <img id="mascote-esquerda" src="mascote2.png" alt="Mascote da esquerda" >
-        
-        <div class="container-jogo">
-          <h1>Caça-Palavras</h1>
-            <div><strong>Encontre as palavras:</strong> <span id="words"></span></div>
-            <div id="grid"></div>
-            <button onclick="limparSelecao()">Limpar</button>
-        </div>
-
-            <img id="mascote-direita" src="mascote.png" alt="Mascote da direita">
-
+    <div id="tema-container">
+        <label for="tema">Escolha um tema:</label>
+        <select id="tema">
+            <option value="">-- Selecione --</option>
+            <option value="animais">Animais</option>
+            <option value="frutas">Frutas</option>
+            <option value="cores">Cores</option>
+        </select>
+        <button id="iniciar">Iniciar Jogo</button>
     </div>
+
+    <div id="grade-container"></div>
+    <div id="palavras-container"></div>
 
     <script src="codigo.js"></script>
 </body>

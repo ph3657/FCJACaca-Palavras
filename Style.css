@@ -1,138 +1,46 @@
 body {
-    background-color: #ffffff; 
-    color: #2E4D69; 
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
 }
 
 h1 {
-    color: #C23F34;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
-}
-
-button {
-    background-color: #F2B946;
-    color: #2E4D69;
-    font-weight: bold;
     margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #D9A63E;
+#tema-container {
+    margin: 20px;
 }
 
-.container-principal {
+#grade-container {
+    display: inline-grid;
+    grid-template-columns: repeat(10, 40px);
+    gap: 2px;
+    margin-top: 20px;
+}
+
+.celula {
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
     display: flex;
-    justify-content: space-between; 
-    align-items: center;          
-    width: 95%;                   
-    max-width: 1400px;   
-    margin: 20px auto;     
-    gap: 20px;
-}
-
-#mascote-esquerda {
-    object-fit: contain;
-    width: 470px;
-    height: auto;
-    margin-top: 100px;
-    max-width: 100%;
-    transform: scaleX(-1);
-}#mascote-direita {
-    object-fit: contain;
-    width: 300px;
-    height: auto;
-    margin-top: 100px;
-}
-
-.container-jogo {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-}
-
-#grid {
-    background-color: #44729D;
-    border: 5px solid #2E4D69;
-    display: grid;
-    grid-template-columns: repeat(12, 35px);
-    gap: 3px;
-    margin-top: 20px;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.cell {
-    background: #FEF6E4; 
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none;
-    font-size: 1.2em;
-    font-weight: bold;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease;
-}
-
-.found {
-    background-color: #F2B946;
-    transform: scale(1.1);
-}
-
-.word-complete {
-    background-color: #5f90be !important;
-    color: #FFFFFF !important;
-}
-
-.mensagem-encontrada {
-    position: fixed;
-    top: 20px;
-    background-color: #FEF6E4;
-    border: 2px solid #F2B946;
-    color: #2E4D69; 
-    padding: 15px 25px;
-    border-radius: 10px;
-    font-size: 18px;
     font-weight: bold;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    animation: fadein 0.5s ease, fadeout 0.5s ease 2.5s;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
+    cursor: pointer;
 }
 
-@keyframes fadein {
-    from { opacity: 0; top: 0; }
-    to { opacity: 1; top: 20px; }
+.celula.selecionada {
+    background-color: yellow;
 }
 
-@keyframes fadeout {
-    from { opacity: 1; top: 20px; }
-    to { opacity: 0; top: 0; }
+#palavras-container {
+    margin-top: 20px;
+    font-size: 18px;
 }
 
-#mensagem {
-    display: none; 
-    position: fixed; 
-    bottom: 20px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    
-    background-color: #2E4D69; 
-    color: #FFFFFF;
-    padding: 15px 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    z-index: 1000;
-    text-align: center;
+.encontrada {
+    text-decoration: line-through;
+    color: green;
 }

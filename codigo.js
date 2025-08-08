@@ -1,190 +1,122 @@
-const gridSize = 12;
-const wordsToFind = ['GIBI', 'LETRA', 'LIVRO' , 'LAPIS'].map(w => w.toUpperCase());
-const gridElement = document.getElementById('grid');
-const wordsElement = document.getElementById('words');
+const temas = {
+    animais: ["CACHORRO", "GATO", "ELEFANTE", "LEAO", "TIGRE", "COBRA"],
+    frutas: ["MANGA", "UVA", "BANANA", "LARANJA", "ABACAXI", "MORANGO"],
+    cores: ["AZUL", "VERDE", "AMARELO", "PRETO", "BRANCO", "ROSA"]
+};
+
+let grade = [];
+let palavras = [];
+let selecionadas = [];
 let palavrasEncontradas = [];
 
-// Mostrar palavras
-wordsElement.textContent = wordsToFind.join(', ');
+document.getElementById("iniciar").addEventListener("click", iniciarJogo);
 
-// Cria matriz vazia
-let grid = Array.from({ length: gridSize }, () =>
-  Array.from({ length: gridSize }, () => '')
-);
-
-// Função que insere palavras em direções aleatórias
-function inserirPalavra(word) {
-  const direcoes = ['horizontal', 'vertical', 'diagonal'];
-  let colocado = false;
-
-  while (!colocado) {
-    const direcao = direcoes[Math.floor(Math.random() * direcoes.length)];
-    let row = Math.floor(Math.random() * gridSize);
-    let col = Math.floor(Math.random() * gridSize);
-
-    if (direcao === 'horizontal' && col + word.length <= gridSize) {
-      for (let i = 0; i < word.length; i++) {
-        grid[row][col + i] = word[i];
-      }
-      colocado = true;
-    } else if (direcao === 'vertical' && row + word.length <= gridSize) {
-      for (let i = 0; i < word.length; i++) {
-        grid[row + i][col] = word[i];
-      }
-      colocado = true;
-    } else if (direcao === 'diagonal' && row + word.length <= gridSize && col + word.length <= gridSize) {
-      for (let i = 0; i < word.length; i++) {
-        grid[row + i][col + i] = word[i];
-      }
-      colocado = true;
+function iniciarJogo() {
+    const temaSelecionado = document.getElementById("tema").value;
+    if (!temaSelecionado) {
+        alert("Escolha um tema antes de iniciar!");
+        return;
     }
-  }
+    palavras = [...temas[temaSelecionado]];
+    gerarGrade(10, 10);
+    mostrarPalavras();
 }
 
-// Insere as palavras na grade
-wordsToFind.forEach(word => {
-  inserirPalavra(word);
-});
+function gerarGrade(linhas, colunas) {
+    grade = Array.from({ length: linhas }, () => Array(colunas).fill(''));
 
-// Preenche espaços vazios com letras aleatórias
-for (let row = 0; row < gridSize; row++) {
-  for (let col = 0; col < gridSize; col++) {
-    if (!grid[row][col]) {
-      grid[row][col] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    // Posiciona palavras
+    palavras.forEach(palavra => {
+        let colocada = false;
+        while (!colocada) {
+            const dir = Math.floor(Math.random() * 3); // 0: horizontal, 1: vertical, 2: diagonal
+            const x = Math.floor(Math.random() * linhas);
+            const y = Math.floor(Math.random() * colunas);
+
+            if (podeColocar(palavra, x, y, dir, linhas, colunas)) {
+                for (let i = 0; i < palavra.length; i++) {
+                    if (dir === 0) grade[x][y + i] = palavra[i];
+                    if (dir === 1) grade[x + i][y] = palavra[i];
+                    if (dir === 2) grade[x + i][y + i] = palavra[i];
+                }
+                colocada = true;
+            }
+        }
+    });
+
+    // Preenche com letras aleatórias
+    const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for (let i = 0; i < linhas; i++) {
+        for (let j = 0; j < colunas; j++) {
+            if (grade[i][j] === '') {
+                grade[i][j] = letras[Math.floor(Math.random() * letras.length)];
+            }
+        }
     }
-  }
+
+    // Renderiza
+    const container = document.getElementById("grade-container");
+    container.innerHTML = '';
+    grade.forEach((linha, i) => {
+        linha.forEach((letra, j) => {
+            const celula = document.createElement("div");
+            celula.classList.add("celula");
+            celula.textContent = letra;
+            celula.dataset.x = i;
+            celula.dataset.y = j;
+            celula.addEventListener("click", selecionarCelula);
+            container.appendChild(celula);
+        });
+    });
 }
 
-// Renderiza a grade na tela
-for (let row = 0; row < gridSize; row++) {
-  for (let col = 0; col < gridSize; col++) {
-    const cell = document.createElement('div');
-    cell.classList.add('cell');
-    cell.textContent = grid[row][col];
-    cell.dataset.row = row;
-    cell.dataset.col = col;
-    gridElement.appendChild(cell);
-  }
-}
+function podeColocar(palavra, x, y, dir, linhas, colunas) {
+    if (dir === 0 && y + palavra.length > colunas) return false;
+    if (dir === 1 && x + palavra.length > linhas) return false;
+    if (dir === 2 && (x + palavra.length > linhas || y + palavra.length > colunas)) return false;
 
-// Armazena a seleção atual
-let selectedLetters = [];
-let selectedPositions = [];
-
-// Valida se a sequência é linha reta
-function éSequênciaVálida(posicoes) {
-  if (posicoes.length < 2) return true;
-
-  const dx = posicoes[1].col - posicoes[0].col;
-  const dy = posicoes[1].row - posicoes[0].row;
-
-  for (let i = 2; i < posicoes.length; i++) {
-    const dxi = posicoes[i].col - posicoes[i - 1].col;
-    const dyi = posicoes[i].row - posicoes[i - 1].row;
-
-    if (dxi !== dx || dyi !== dy) return false;
-  }
-
-  return true;
-}
-
-// Clique nas células
-gridElement.addEventListener('click', (e) => {
-  if (!e.target.classList.contains('cell')) return;
-
-  const row = parseInt(e.target.dataset.row);
-  const col = parseInt(e.target.dataset.col);
-
-  e.target.classList.add('found');
-  selectedLetters.push(e.target.textContent);
-  selectedPositions.push({ row, col });
-
-  const selectedWord = selectedLetters.join('').toUpperCase();
-  const reversedWord = selectedLetters.slice().reverse().join('').toUpperCase();
-
-  if (!éSequênciaVálida(selectedPositions)) {
-    alert('As letras precisam estar em sequência na mesma linha, coluna ou diagonal!');
-    limparSelecao();
-    return;
-  }
-
-  if (wordsToFind.includes(selectedWord) || wordsToFind.includes(reversedWord)) {
-  const palavraFinal = wordsToFind.includes(selectedWord) ? selectedWord : reversedWord;
-
-  if (!palavrasEncontradas.includes(palavraFinal)) {
-    palavrasEncontradas.push(palavraFinal);
-    mostrarMensagem(`🎉 Você encontrou a palavra: ${palavraFinal}!`);
-  }
-
-  // Marca as letras da palavra como completas
-  document.querySelectorAll('.cell.found').forEach(cell => {
-    cell.classList.remove('found');
-    cell.classList.add('word-complete');
-  });
-
-  selectedLetters = [];
-  selectedPositions = [];
-
-  // ✅ VERIFICA SE TODAS FORAM ENCONTRADAS
-  if (palavrasEncontradas.length === wordsToFind.length) {
-    setTimeout(() => {
-      mostrarMensagemFinal("🏆 Parabéns! Você encontrou TODAS as palavras!");
-    }, 700); // pequeno delay para não sobrepor a mensagem da última palavra
-  }
-}
-
-//Limpar automaticamente
-  if (selectedLetters.length > 8) {
-    limparSelecao();
-  }
-});
-
-// Limpa seleção manualmente ou por erro
-function limparSelecao() {
-  selectedLetters = [];
-  selectedPositions = [];
-  document.querySelectorAll('.cell.found').forEach(cell => {
-    cell.classList.remove('found');
-  });
-}
-// Mensagem personalizada
-function mostrarMensagem(texto) {
-  const msg = document.getElementById('mensagem');
-  // Evita sobrescrever a mensagem final (com botão)
-  if (msg.dataset.final === 'true') return;
-
-  msg.textContent = texto;
-  msg.style.display = 'block';
-
-  setTimeout(() => {
-    if (msg.dataset.final !== 'true') {
-      msg.style.display = 'none';
+    for (let i = 0; i < palavra.length; i++) {
+        let letraExistente;
+        if (dir === 0) letraExistente = grade[x][y + i];
+        if (dir === 1) letraExistente = grade[x + i][y];
+        if (dir === 2) letraExistente = grade[x + i][y + i];
+        if (letraExistente && letraExistente !== '' && letraExistente !== palavra[i]) return false;
     }
-  }, 3000);
+    return true;
 }
-//mensagem final com botão de reiniciar
-function mostrarMensagemFinal(texto) {
-  const msg = document.getElementById('mensagem');
-  msg.innerHTML = `
-    <div style="margin-bottom: 10px;">${texto}</div>
-    <button onclick="reiniciarJogo()" style="
-      padding: 8px 14px;
-      background-color: #ffaa00;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-    ">🔁 Jogar Novamente</button>
-  `;
-  msg.style.display = 'block';
-  msg.style.backgroundColor = '#e0ffe0';
-  msg.style.borderColor = '#28a745';
-  msg.dataset.final = 'true'
+
+function selecionarCelula(e) {
+    const celula = e.target;
+    celula.classList.toggle("selecionada");
+    const pos = { x: parseInt(celula.dataset.x), y: parseInt(celula.dataset.y) };
+    selecionadas.push(pos);
+
+    verificarPalavra();
 }
-//recarrega a página
-function reiniciarJogo() {
-  window.location.reload();
+
+function verificarPalavra() {
+    let palavraSelecionada = "";
+    selecionadas.forEach(pos => {
+        palavraSelecionada += grade[pos.x][pos.y];
+    });
+
+    if (palavras.includes(palavraSelecionada)) {
+        palavrasEncontradas.push(palavraSelecionada);
+        selecionadas = [];
+        document.querySelectorAll(".selecionada").forEach(c => c.classList.remove("selecionada"));
+        atualizarLista();
+    }
+}
+
+function mostrarPalavras() {
+    const container = document.getElementById("palavras-container");
+    container.innerHTML = "<strong>Palavras para encontrar:</strong><br>" + palavras.join(", ");
+}
+
+function atualizarLista() {
+    const container = document.getElementById("palavras-container");
+    container.innerHTML = "<strong>Palavras para encontrar:</strong><br>" +
+        palavras.map(p => palavrasEncontradas.includes(p) ? `<span class="encontrada">${p}</span>` : p).join(", ");
 }
 
 //quase morri bla
