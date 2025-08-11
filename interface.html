@@ -4,25 +4,38 @@
     <div id="mensagem"></div>
     <meta charset="UTF-8" />
     <title>Caça-Palavras</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style.css">
 
 </head>
-<body>
-    
-    <div class="container-principal"> 
+    <body>
+    <div id="tela-selecao-tema">
+        <h1>Caça-Palavras</h1>
+        <h2>Escolha um Tema:</h2>
+        <div class="botoes-tema">
+            <button class="botao-tema" data-tema="animais">Animais</button>
+            <button class="botao-tema" data-tema="cores">Cores</button>
+            <button class="botao-tema" data-tema="alimentos">Alimentos</button>
+        </div>
+    </div>
 
-    <img id="mascote-esquerda" src="mascote2.png" alt="Mascote da esquerda" >
+    <div class="container-principal" style="display: none;">
+        <img id="mascote-esquerda" src="mascote2.png" alt="Mascote da esquerda">
         
         <div class="container-jogo">
-          <h1>Caça-Palavras</h1>
+            <h1>Caça-Palavras</h1>
             <div><strong>Encontre as palavras:</strong> <span id="words"></span></div>
             <div id="grid"></div>
-            <button onclick="limparSelecao()">Limpar</button>
+           <div class="botoes-controle-jogo">
+            <button onclick="limparSelecao()">Limpar Seleção</button>
+            <button id="botao-voltar" onclick="voltarParaSelecao()">Mudar Tema</button>
         </div>
+    <div>
+    <div>   
 
-            <img id="mascote-direita" src="mascote.png" alt="Mascote da direita">
-
+        <img id="mascote-direita" src="mascote.png" alt="Mascote da direita">
     </div>
+
+    <div id="mensagem"></div>
 
     <script src="codigo.js"></script>
 </body>

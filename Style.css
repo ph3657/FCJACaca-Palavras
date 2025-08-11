@@ -32,26 +32,30 @@ button:hover {
 
 .container-principal {
     display: flex;
-    justify-content: space-between; 
-    align-items: center;          
-    width: 95%;                   
-    max-width: 1400px;   
-    margin: 20px auto;     
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    width: 79%;                   
+    max-width: 1400px;              
+    margin: 5px auto;            
+    gap: 5px;
+}
+
+#mascote-esquerda,
+#mascote-direita {
+    flex: 1; 
+    max-width: 0%; 
+    height: auto; 
+    object-fit: contain;
 }
 
 #mascote-esquerda {
-    object-fit: contain;
-    width: 470px;
-    height: auto;
-    margin-top: 100px;
-    max-width: 100%;
-    transform: scaleX(-1);
-}#mascote-direita {
-    object-fit: contain;
-    width: 300px;
-    height: auto;
-    margin-top: 100px;
+    transform: scaleX(-1); 
+    justify-self: flex-start; 
+}
+
+#mascote-direita {
+    
+    justify-self: flex-end;
 }
 
 .container-jogo {
@@ -135,4 +139,73 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     z-index: 1000;
     text-align: center;
+}
+/* --- ESTILOS PARA A TELA DE SELEÇÃO DE TEMA --- */
+
+#tela-selecao-tema {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+#tela-selecao-tema h2 {
+    margin-bottom: 30px;
+    color: #44729D;
+}
+
+.botoes-tema {
+    display: flex;
+    gap: 20px;
+}
+
+.botao-tema {
+    padding: 20px 40px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    background-color: #44729D; /* Azul principal */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.botao-tema:hover:not([disabled]) {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    background-color: #5f90be; /* Azul mais claro */
+}
+
+.botao-tema:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+}
+/* --- ESTILOS PARA OS BOTÕES DE CONTROLE DO JOGO --- */
+
+.botoes-controle-jogo {
+    display: flex;
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 20px;
+}
+
+/* Estilo para o botão principal de controle (Limpar) */
+.botoes-controle-jogo button {
+    background-color: #F2B946; /* Amarelo */
+    color: #2E4D69;
+}
+
+.botoes-controle-jogo button:hover {
+     background-color: #D9A63E;
+}
+
+/* Estilo específico para o botão de voltar (Mudar Tema) */
+#botao-voltar {
+    background-color: #6c757d; /* Cinza para ação secundária */
+    color: white;
+}
+
+#botao-voltar:hover {
+    background-color: #5a6268;
 }
