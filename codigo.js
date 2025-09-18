@@ -205,6 +205,5 @@ botoesTema.forEach(botao => {
     });
 });
 
-//quase morri bla
 
 
