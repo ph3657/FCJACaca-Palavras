@@ -56,7 +56,6 @@ button:hover {
 }
 
 #mascote-direita {
-    
     justify-self: flex-end;
 }
 
@@ -133,7 +132,6 @@ button:hover {
     bottom: 20px; 
     left: 50%; 
     transform: translateX(-50%); 
-    
     background-color: #2E4D69; 
     color: #FFFFFF;
     padding: 15px 25px;
@@ -142,8 +140,8 @@ button:hover {
     z-index: 1000;
     text-align: center;
 }
-/* --- ESTILOS PARA A TELA DE SELEÇÃO DE TEMA --- */
 
+/* --- ESTILOS PARA A TELA DE SELEÇÃO DE TEMA --- */
 #tela-selecao-tema {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.8);
@@ -167,7 +165,7 @@ button:hover {
     font-size: 22px;
     font-weight: bold;
     color: white;
-    background-color: #44729D; /* Azul principal */
+    background-color: #44729D;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -177,37 +175,51 @@ button:hover {
 .botao-tema:hover:not([disabled]) {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-    background-color: #5f90be; /* Azul mais claro */
+    background-color: #5f90be;
 }
 
 .botao-tema:disabled {
     background-color: #a0a0a0;
     cursor: not-allowed;
 }
-/* --- ESTILOS PARA OS BOTÕES DE CONTROLE DO JOGO --- */
 
+/* --- ESTILOS PARA OS BOTÕES DE CONTROLE DO JOGO --- */
 .botoes-controle-jogo {
     display: flex;
-    gap: 15px; /* Espaço entre os botões */
+    gap: 15px;
     margin-top: 20px;
 }
 
-/* Estilo para o botão principal de controle (Limpar) */
-.botoes-controle-jogo button {
-    background-color: #F2B946; /* Amarelo */
-    color: #2E4D69;
-}
-
-.botoes-controle-jogo button:hover {
-     background-color: #D9A63E;
-}
-
-/* Estilo específico para o botão de voltar (Mudar Tema) */
 #botao-voltar {
-    background-color: #6c757d; /* Cinza para ação secundária */
+    background-color: #6c757d;
     color: white;
 }
 
 #botao-voltar:hover {
     background-color: #5a6268;
+}
+
+/* --- ESTILO DAS PALAVRAS NA LISTA --- */
+.palavra-lista {
+  margin-right: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.palavra-encontrada {
+  text-decoration: line-through;
+  color: green;
+  font-style: italic;
+}
+#assinatura {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
