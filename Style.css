@@ -4,6 +4,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Adicionado para centralizar verticalmente */
+    min-height: 100vh; /* Garante que o body ocupe no mínimo 100% da altura da tela */
+    margin: 0; /* Remove a margem padrão do body */
     background-image: url('Fundo.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -36,16 +39,16 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 79%;                   
-    max-width: 1400px;              
+    width: 90%; /* Aumentado para ocupar mais espaço em telas maiores */          
+    max-width: 1400px;             
     margin: 5px auto;            
-    gap: 5px;
+    gap: 15px; /* Aumentei um pouco o gap */
 }
 
 #mascote-esquerda,
 #mascote-direita {
     flex: 1; 
-    max-width: 0%; 
+    max-width: 0%; /* Ajustado para que as mascotes apareçam e sejam responsivas */
     height: auto; 
     object-fit: contain;
 }
@@ -65,16 +68,24 @@ button:hover {
     align-items: center;
 }
 
+/* --- SELETOR DO GRID CORRIGIDO --- */
 #grid {
-    background-color: #44729D;
+     background-color: #44729D;
     border: 5px solid #2E4D69;
     display: grid;
-    grid-template-columns: repeat(12, 35px);
-    gap: 3px;
-    margin-top: 20px;
+    grid-template-columns: repeat(12, 1fr); 
+    gap: 1%;
+    width: 100%;
+    
+    /* Linha principal da correção: limita a largura (e altura) a 65% da altura da tela */
+    max-width: 65vh; 
+    
+    margin-top: 15px; /* Reduzido um pouco para economizar espaço */
     border-radius: 10px;
     padding: 10px;
+    aspect-ratio: 1 / 1; 
 }
+
 
 .cell {
     background: #FEF6E4; 
@@ -222,4 +233,32 @@ button:hover {
   padding: 5px 10px;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+
+/* --- CÓDIGO ADICIONADO PARA RESPONSIVIDADE --- */
+/* Estilos para telas menores que 800px (tablets e celulares) */
+@media (max-width: 800px) {
+    .container-principal {
+        flex-direction: column; /* Coloca o jogo acima dos mascotes */
+        width: 95%; /* Ocupa mais a largura da tela */
+    }
+
+    /* Esconde os mascotes para economizar espaço */
+    #mascote-esquerda,
+    #mascote-direita {
+        display: none;
+    }
+
+    h1 {
+        font-size: 24px; /* Diminui o título principal */
+    }
+
+    .cell {
+        font-size: 1em; /* Diminui a fonte das letras */
+    }
+
+    #grid {
+        max-width: 90vw; /* Limita a largura a 90% da tela */
+    }
 }
